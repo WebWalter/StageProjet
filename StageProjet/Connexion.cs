@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 
 namespace StageProjet
 {
-    public partial class Splash : Form
+    public partial class Connexion : Form
     {
 
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
@@ -26,30 +26,35 @@ namespace StageProjet
            int nHeightEllipse
            );
 
-        public Splash()
+        public Connexion()
         {
             InitializeComponent();
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 25, 25));
-            prograssbar1.Value = 0;
         }
 
-        private void Splash_Load(object sender, EventArgs e)
+        private void cbShowPass_CheckedChanged(object sender, EventArgs e)
         {
-
+            if (cbShowPass.Checked)
+                txtPassword.UseSystemPasswordChar = false;
+            else
+                txtPassword.UseSystemPasswordChar = true;
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void btnQuit_Click(object sender, EventArgs e)
         {
-            prograssbar1.Value += 1;
-            prograssbar1.Text = prograssbar1.Value.ToString() + "%";
+            Application.Exit();
+        }
 
-            if(prograssbar1.Value == 100)
-            {
-                timer1.Enabled = false;
-                Connexion h = new Connexion();
-                h.Show();
-                this.Hide();
-            }
+        private void btnMinimize_Click(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Minimized;
+        }
+
+        private void btnPageInscription_Click(object sender, EventArgs e)
+        {
+            Inscription h = new Inscription();
+            h.Show();
+            this.Hide();
         }
     }
 }
